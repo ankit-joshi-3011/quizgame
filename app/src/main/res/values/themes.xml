@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.QuizGame" parent="Base.Theme.QuizGame" />
+
+    <style name="AppThemeSplash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 </resources>
