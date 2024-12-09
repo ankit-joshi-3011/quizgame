@@ -8,4 +8,6 @@
     <string name="login_or_text_view_text">OR</string>
     <string name="login_sign_up_text_view_text">Don\'t have an account yet? <font color="#FF0000CC"><b><u><i>Sign Up</i></u></b></font></string>
     <string name="login_forgot_password_text_view_text"><u>I forgot my password</u></string>
+    <string name="sign_up_image_view_content_description">Sign Up</string>
+    <string name="sign_up_button_text">Sign Up</string>
 </resources>
