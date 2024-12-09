@@ -33,7 +33,7 @@ class WelcomeActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
 
         handler.postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }, 5000)
     }
