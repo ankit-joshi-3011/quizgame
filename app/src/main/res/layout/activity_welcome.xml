@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash_quiz_image" />
+        app:srcCompat="@drawable/splash_login_quiz_image" />
 
     <TextView
         android:id="@+id/textViewSplash"
