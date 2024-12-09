@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Quiz Game</string>
     <string name="quiz_splash_image_view_content_description">Quiz Game</string>
+    <string name="login_image_view_content_description">Quiz Game Login</string>
+    <string name="text_input_edit_text_email_hint">Email</string>
+    <string name="text_input_edit_text_password_hint">Password</string>
 </resources>
