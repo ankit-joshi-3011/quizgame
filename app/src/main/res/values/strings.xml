@@ -19,4 +19,5 @@
     <string name="reset_button_text">Reset My Password</string>
     <string name="forgot_password_email_sent_successfully">We sent a password reset mail to your email address</string>
     <string name="forgot_password_email_send_failure_text">Unable to reset password. Please try again later</string>
+    <string name="google_sign_in_button_text">Continue with Google</string>
 </resources>
