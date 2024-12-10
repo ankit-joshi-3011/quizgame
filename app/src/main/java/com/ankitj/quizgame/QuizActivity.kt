@@ -1,5 +1,6 @@
 package com.ankitj.quizgame
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,6 +29,9 @@ class QuizActivity : AppCompatActivity() {
     private var answer3 = ""
     private var answer4 = ""
     private var correctAnswer = ""
+    private var userAnswer = ""
+    private var numberOfCorrectAnswers = 0
+    private var numberOfWrongAnswers = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,24 +56,47 @@ class QuizActivity : AppCompatActivity() {
 
         }
 
-        quizActivityBinding.textViewAnswer1.setOnClickListener {
+        quizActivityBinding.textViewAnswer1.setOnClickListener(getAnswerTextViewOnClickListener("option1"))
+        quizActivityBinding.textViewAnswer2.setOnClickListener(getAnswerTextViewOnClickListener("option2"))
+        quizActivityBinding.textViewAnswer3.setOnClickListener(getAnswerTextViewOnClickListener("option3"))
+        quizActivityBinding.textViewAnswer4.setOnClickListener(getAnswerTextViewOnClickListener("option4"))
+    }
 
-        }
+    private fun getAnswerTextViewOnClickListener(answer: String) : View.OnClickListener {
+        return View.OnClickListener {
+            userAnswer = answer
 
-        quizActivityBinding.textViewAnswer2.setOnClickListener {
+            when (correctAnswer) {
+                "option1" -> quizActivityBinding.textViewAnswer1.setBackgroundColor(Color.GREEN)
+                "option2" -> quizActivityBinding.textViewAnswer2.setBackgroundColor(Color.GREEN)
+                "option3" -> quizActivityBinding.textViewAnswer3.setBackgroundColor(Color.GREEN)
+                "option4" -> quizActivityBinding.textViewAnswer4.setBackgroundColor(Color.GREEN)
+            }
 
-        }
+            if (correctAnswer == userAnswer) {
+                numberOfCorrectAnswers++
+                quizActivityBinding.textViewCorrectAnswers.text = "$numberOfCorrectAnswers"
+            } else {
+                when (userAnswer) {
+                    "option1" -> quizActivityBinding.textViewAnswer1.setBackgroundColor(Color.RED)
+                    "option2" -> quizActivityBinding.textViewAnswer2.setBackgroundColor(Color.RED)
+                    "option3" -> quizActivityBinding.textViewAnswer3.setBackgroundColor(Color.RED)
+                    "option4" -> quizActivityBinding.textViewAnswer4.setBackgroundColor(Color.RED)
+                }
+                numberOfWrongAnswers++
+                quizActivityBinding.textViewWrongAnswers.text = "$numberOfWrongAnswers"
+            }
 
-        quizActivityBinding.textViewAnswer3.setOnClickListener {
-
-        }
-
-        quizActivityBinding.textViewAnswer4.setOnClickListener {
-
+            quizActivityBinding.textViewAnswer1.isClickable = false
+            quizActivityBinding.textViewAnswer2.isClickable = false
+            quizActivityBinding.textViewAnswer3.isClickable = false
+            quizActivityBinding.textViewAnswer4.isClickable = false
         }
     }
 
     private fun gameLogic() {
+        restoreUI()
+
         databaseReference.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 questionCount = snapshot.childrenCount
@@ -104,5 +131,17 @@ class QuizActivity : AppCompatActivity() {
                 Log.e("QuizActivity", getString(R.string.database_question_retrieval_error_text), error.toException())
             }
         })
+    }
+
+    private fun restoreUI() {
+        quizActivityBinding.textViewAnswer1.setBackgroundColor(Color.WHITE)
+        quizActivityBinding.textViewAnswer2.setBackgroundColor(Color.WHITE)
+        quizActivityBinding.textViewAnswer3.setBackgroundColor(Color.WHITE)
+        quizActivityBinding.textViewAnswer4.setBackgroundColor(Color.WHITE)
+
+        quizActivityBinding.textViewAnswer1.isClickable = true
+        quizActivityBinding.textViewAnswer2.isClickable = true
+        quizActivityBinding.textViewAnswer3.isClickable = true
+        quizActivityBinding.textViewAnswer4.isClickable = true
     }
 }
