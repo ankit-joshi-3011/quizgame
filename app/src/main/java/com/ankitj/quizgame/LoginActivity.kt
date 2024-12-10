@@ -2,14 +2,18 @@ package com.ankitj.quizgame
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ankitj.quizgame.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginActivityBinding: ActivityLoginBinding
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +29,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginActivityBinding.buttonSignIn.setOnClickListener {
-
+            val email = loginActivityBinding.editTextLoginEmail.text.toString()
+            val password = loginActivityBinding.editTextLoginPassword.text.toString()
+            signInWithFirebase(email, password)
         }
 
         loginActivityBinding.buttonGoogleSignIn.setOnClickListener {
@@ -39,6 +45,20 @@ class LoginActivity : AppCompatActivity() {
 
         loginActivityBinding.textViewForgotPassword.setOnClickListener {
 
+        }
+    }
+
+    private fun signInWithFirebase(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this@LoginActivity, getText(R.string.login_successful_text), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this@LoginActivity, getText(R.string.login_failure_text), Toast.LENGTH_SHORT).show()
+                Log.e("LoginActivity", getString(R.string.login_failure_text), task.exception)
+            }
         }
     }
 }

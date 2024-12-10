@@ -12,4 +12,6 @@
     <string name="sign_up_button_text">Sign Up</string>
     <string name="account_creation_successful_text">Your account has been created</string>
     <string name="account_creation_failure_text">Your account was not created. Please try again later</string>
+    <string name="login_successful_text">Welcome to Quiz Game</string>
+    <string name="login_failure_text">Unable to login. Please try again later</string>
 </resources>
