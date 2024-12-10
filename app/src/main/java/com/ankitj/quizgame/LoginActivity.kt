@@ -44,7 +44,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginActivityBinding.textViewForgotPassword.setOnClickListener {
-
+            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
