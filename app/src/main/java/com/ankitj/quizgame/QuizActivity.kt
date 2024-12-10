@@ -1,5 +1,6 @@
 package com.ankitj.quizgame
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ankitj.quizgame.databinding.ActivityQuizBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,7 +21,7 @@ import com.google.firebase.database.ValueEventListener
 class QuizActivity : AppCompatActivity() {
     private lateinit var quizActivityBinding: ActivityQuizBinding
     private var database = FirebaseDatabase.getInstance()
-    private var databaseReference = database.reference.child("questions")
+    private var databaseReferenceQuestions = database.reference.child("questions")
 
     private var questionCount = 0L
     private var questionToRetrieve = 1
@@ -37,6 +39,10 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var timer: CountDownTimer
     private val totalTime = 60_000L
     private var leftTime = totalTime
+
+    private val auth = FirebaseAuth.getInstance()
+    private val user = auth.currentUser
+    private val databaseReferenceScores = database.reference.child("scores")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +65,7 @@ class QuizActivity : AppCompatActivity() {
         }
 
         quizActivityBinding.buttonFinish.setOnClickListener {
-
+            sendScores()
         }
 
         quizActivityBinding.textViewAnswer1.setOnClickListener(getAnswerTextViewOnClickListener("option1"))
@@ -68,7 +74,7 @@ class QuizActivity : AppCompatActivity() {
         quizActivityBinding.textViewAnswer4.setOnClickListener(getAnswerTextViewOnClickListener("option4"))
     }
 
-    private fun getAnswerTextViewOnClickListener(answer: String) : View.OnClickListener {
+    private fun getAnswerTextViewOnClickListener(answer: String): View.OnClickListener {
         return View.OnClickListener {
             pauseTimer()
 
@@ -102,7 +108,7 @@ class QuizActivity : AppCompatActivity() {
     private fun gameLogic() {
         restoreUI()
 
-        databaseReference.addValueEventListener(object: ValueEventListener {
+        databaseReferenceQuestions.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 questionCount = snapshot.childrenCount
 
@@ -160,7 +166,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        timer = object: CountDownTimer(leftTime, 1_000L) {
+        timer = object : CountDownTimer(leftTime, 1_000L) {
             override fun onTick(millisUntilFinished: Long) {
                 leftTime = millisUntilFinished
                 updateCountDownText()
@@ -187,5 +193,18 @@ class QuizActivity : AppCompatActivity() {
         pauseTimer()
         leftTime = totalTime
         updateCountDownText()
+    }
+
+    private fun sendScores() {
+        user?.let {
+            val userUID = it.uid
+            databaseReferenceScores.child(userUID).child("correct").setValue(numberOfCorrectAnswers)
+            databaseReferenceScores.child(userUID).child("wrong").setValue(numberOfWrongAnswers).addOnSuccessListener {
+                Toast.makeText(this, getString(R.string.score_send_to_database_successful_text), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ResultActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }
