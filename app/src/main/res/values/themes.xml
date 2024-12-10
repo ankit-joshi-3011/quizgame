@@ -13,7 +13,7 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
-    <style name="AppThemeSignUpForgotPassword" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppThemeSignUpForgotPasswordMain" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
