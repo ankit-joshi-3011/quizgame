@@ -12,7 +12,20 @@
           "package_name": "com.ankitj.quizgame"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "82707105677-m56pa4cnsttbf9ku4sl6bsmevr2s0l8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ankitj.quizgame",
+            "certificate_hash": "576c2b5f40e474c8caa96915b687f6bc2315ce56"
+          }
+        },
+        {
+          "client_id": "82707105677-ltmdp6fp8e7qg9nh6pjjstvlrpp4kikl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA9ZC5KDHYR7Fuf8HeOd3ijrZ-Ve_rz4zk"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82707105677-ltmdp6fp8e7qg9nh6pjjstvlrpp4kikl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
