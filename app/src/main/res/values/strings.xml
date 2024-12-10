@@ -23,4 +23,17 @@
     <string name="start_quiz_button_text">Start Quiz</string>
     <string name="main_quiz_image_view_content_description">Quiz Games</string>
     <string name="sign_out_successful_text">Sign out was successful</string>
+    <string name="time_label_text">Time:</string>
+    <string name="text_view_time_default_value">60</string>
+    <string name="correct_answers_label_text">Correct Answers:</string>
+    <string name="text_view_correct_answers_default_value">0</string>
+    <string name="wrong_answers_label_text">Wrong Answers:</string>
+    <string name="text_view_wrong_answers_default_value">0</string>
+    <string name="text_view_question_default_value">Question</string>
+    <string name="text_view_answer_1_default_value">Answer 1</string>
+    <string name="text_view_answer_2_default_value">Answer 2</string>
+    <string name="text_view_answer_3_default_value">Answer 3</string>
+    <string name="text_view_answer_4_default_value">Answer 4</string>
+    <string name="button_finish_text">Finish</string>
+    <string name="button_next_text">Next</string>
 </resources>
