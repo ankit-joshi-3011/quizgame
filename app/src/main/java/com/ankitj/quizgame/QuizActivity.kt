@@ -2,6 +2,7 @@ package com.ankitj.quizgame
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -33,6 +34,10 @@ class QuizActivity : AppCompatActivity() {
     private var numberOfCorrectAnswers = 0
     private var numberOfWrongAnswers = 0
 
+    private lateinit var timer: CountDownTimer
+    private val totalTime = 60_000L
+    private var leftTime = totalTime
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,6 +54,7 @@ class QuizActivity : AppCompatActivity() {
         gameLogic()
 
         quizActivityBinding.buttonNext.setOnClickListener {
+            resetTimer()
             gameLogic()
         }
 
@@ -64,6 +70,8 @@ class QuizActivity : AppCompatActivity() {
 
     private fun getAnswerTextViewOnClickListener(answer: String) : View.OnClickListener {
         return View.OnClickListener {
+            pauseTimer()
+
             userAnswer = answer
 
             when (correctAnswer) {
@@ -87,10 +95,7 @@ class QuizActivity : AppCompatActivity() {
                 quizActivityBinding.textViewWrongAnswers.text = "$numberOfWrongAnswers"
             }
 
-            quizActivityBinding.textViewAnswer1.isClickable = false
-            quizActivityBinding.textViewAnswer2.isClickable = false
-            quizActivityBinding.textViewAnswer3.isClickable = false
-            quizActivityBinding.textViewAnswer4.isClickable = false
+            disableTextViewsFromBeingClickable()
         }
     }
 
@@ -119,6 +124,8 @@ class QuizActivity : AppCompatActivity() {
                     quizActivityBinding.statisticsLinearLayout.visibility = View.VISIBLE
                     quizActivityBinding.gameAreaLinearLayout.visibility = View.VISIBLE
                     quizActivityBinding.buttonLinearLayout.visibility = View.VISIBLE
+
+                    startTimer()
                 } else {
                     Toast.makeText(this@QuizActivity, getString(R.string.quiz_completed_text), Toast.LENGTH_SHORT).show()
                 }
@@ -133,6 +140,13 @@ class QuizActivity : AppCompatActivity() {
         })
     }
 
+    private fun disableTextViewsFromBeingClickable() {
+        quizActivityBinding.textViewAnswer1.isClickable = false
+        quizActivityBinding.textViewAnswer2.isClickable = false
+        quizActivityBinding.textViewAnswer3.isClickable = false
+        quizActivityBinding.textViewAnswer4.isClickable = false
+    }
+
     private fun restoreUI() {
         quizActivityBinding.textViewAnswer1.setBackgroundColor(Color.WHITE)
         quizActivityBinding.textViewAnswer2.setBackgroundColor(Color.WHITE)
@@ -143,5 +157,35 @@ class QuizActivity : AppCompatActivity() {
         quizActivityBinding.textViewAnswer2.isClickable = true
         quizActivityBinding.textViewAnswer3.isClickable = true
         quizActivityBinding.textViewAnswer4.isClickable = true
+    }
+
+    private fun startTimer() {
+        timer = object: CountDownTimer(leftTime, 1_000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                leftTime = millisUntilFinished
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+                resetTimer()
+                quizActivityBinding.textViewQuestion.text = getText(R.string.time_up_text)
+                disableTextViewsFromBeingClickable()
+            }
+        }.start()
+    }
+
+    private fun updateCountDownText() {
+        val remainingTimeInSeconds: Int = (leftTime / 1000).toInt()
+        quizActivityBinding.textViewTime.text = "$remainingTimeInSeconds"
+    }
+
+    private fun pauseTimer() {
+        timer.cancel()
+    }
+
+    private fun resetTimer() {
+        pauseTimer()
+        leftTime = totalTime
+        updateCountDownText()
     }
 }
