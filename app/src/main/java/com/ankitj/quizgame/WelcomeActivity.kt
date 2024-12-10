@@ -35,6 +35,6 @@ class WelcomeActivity : AppCompatActivity() {
         handler.postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        }, 5000)
+        }, 3500)
     }
 }
