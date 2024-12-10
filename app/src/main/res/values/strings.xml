@@ -20,4 +20,7 @@
     <string name="forgot_password_email_sent_successfully">We sent a password reset mail to your email address</string>
     <string name="forgot_password_email_send_failure_text">Unable to reset password. Please try again later</string>
     <string name="google_sign_in_button_text">Continue with Google</string>
+    <string name="start_quiz_button_text">Start Quiz</string>
+    <string name="main_quiz_image_view_content_description">Quiz Games</string>
+    <string name="sign_out_successful_text">Sign out was successful</string>
 </resources>
