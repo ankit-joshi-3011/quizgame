@@ -17,8 +17,8 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
-            android:theme="@style/SignUpTheme"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppThemeSignUpForgotPassword" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
