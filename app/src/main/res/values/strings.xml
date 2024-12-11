@@ -44,4 +44,5 @@
     <string name="play_again_button_text">Play Again</string>
     <string name="congratulations_image_view_content_description">Congratulations</string>
     <string name="exit_button_text">Exit</string>
+    <string name="database_scores_retrieval_error_text">Unable to retrieve scores. Please try again later</string>
 </resources>
