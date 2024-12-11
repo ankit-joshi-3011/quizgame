@@ -20,17 +20,17 @@
         <activity
             android:name=".QuizActivity"
             android:exported="false"
-            android:theme="@style/AppThemeSignUpForgotPasswordMainQuiz" />
+            android:theme="@style/AppThemeRemaining" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppThemeSignUpForgotPasswordMainQuiz" />
+            android:theme="@style/AppThemeRemaining" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppThemeSignUpForgotPasswordMainQuiz" />
+            android:theme="@style/AppThemeRemaining" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
@@ -48,7 +48,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/AppThemeSignUpForgotPasswordMainQuiz" />
+            android:theme="@style/AppThemeRemaining" />
     </application>
 
 </manifest>
