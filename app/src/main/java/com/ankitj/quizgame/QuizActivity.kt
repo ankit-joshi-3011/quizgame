@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlin.random.Random
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var quizActivityBinding: ActivityQuizBinding
@@ -25,7 +26,8 @@ class QuizActivity : AppCompatActivity() {
     private var databaseReferenceQuestions = database.reference.child("questions")
 
     private var questionCount = 0L
-    private var questionToRetrieve = 1
+    private var questionToRetrieve = 0
+    private val numberOfQuestionsToRetrieve = 5
 
     private var question = ""
     private var answer1 = ""
@@ -36,6 +38,7 @@ class QuizActivity : AppCompatActivity() {
     private var userAnswer = ""
     private var numberOfCorrectAnswers = 0
     private var numberOfWrongAnswers = 0
+    private val questions = HashSet<Int>()
 
     private lateinit var timer: CountDownTimer
     private val totalTime = 60_000L
@@ -57,6 +60,10 @@ class QuizActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        do {
+            questions.add(Random.nextInt(1, 11))
+        } while (questions.size < numberOfQuestionsToRetrieve)
 
         gameLogic()
 
@@ -113,13 +120,15 @@ class QuizActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 questionCount = snapshot.childrenCount
 
-                if (questionToRetrieve <= questionCount) {
-                    question = snapshot.child(questionToRetrieve.toString()).child("question").value.toString()
-                    answer1 = snapshot.child(questionToRetrieve.toString()).child("option1").value.toString()
-                    answer2 = snapshot.child(questionToRetrieve.toString()).child("option2").value.toString()
-                    answer3 = snapshot.child(questionToRetrieve.toString()).child("option3").value.toString()
-                    answer4 = snapshot.child(questionToRetrieve.toString()).child("option4").value.toString()
-                    correctAnswer = snapshot.child(questionToRetrieve.toString()).child("answer").value.toString()
+                if (questionToRetrieve < numberOfQuestionsToRetrieve) {
+                    val questionChild = questions.elementAt(questionToRetrieve).toString()
+
+                    question = snapshot.child(questionChild).child("question").value.toString()
+                    answer1 = snapshot.child(questionChild).child("option1").value.toString()
+                    answer2 = snapshot.child(questionChild).child("option2").value.toString()
+                    answer3 = snapshot.child(questionChild).child("option3").value.toString()
+                    answer4 = snapshot.child(questionChild).child("option4").value.toString()
+                    correctAnswer = snapshot.child(questionChild).child("answer").value.toString()
 
                     quizActivityBinding.textViewQuestion.text = question
                     quizActivityBinding.textViewAnswer1.text = answer1
