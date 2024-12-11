@@ -1,0 +1,1 @@
+When setting up the code on a new machine, please login to the Firebase Console -> Go to the Quiz Game app -> Go to the Project Overview -> Click on the Gear icon to go to Project Settings -> Download the google-services.json file -> Put it in the app folder.
