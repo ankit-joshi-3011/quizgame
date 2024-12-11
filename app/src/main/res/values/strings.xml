@@ -42,4 +42,6 @@
     <string name="score_send_to_database_successful_text">Scores sent to database successfully</string>
     <string name="see_result_button_text">See Result</string>
     <string name="play_again_button_text">Play Again</string>
+    <string name="congratulations_image_view_content_description">Congratulations</string>
+    <string name="exit_button_text">Exit</string>
 </resources>
