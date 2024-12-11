@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -133,7 +134,20 @@ class QuizActivity : AppCompatActivity() {
 
                     startTimer()
                 } else {
-                    Toast.makeText(this@QuizActivity, getString(R.string.quiz_completed_text), Toast.LENGTH_SHORT).show()
+                    AlertDialog.Builder(this@QuizActivity)
+                        .setTitle(getText(R.string.app_name))
+                        .setMessage(getText(R.string.quiz_completed_text))
+                        .setCancelable(false)
+                        .setPositiveButton(getText(R.string.see_result_button_text)) { _, _ ->
+                            sendScores()
+                        }
+                        .setNegativeButton(getText(R.string.play_again_button_text)) { _, _ ->
+                            val intent = Intent(this@QuizActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        .create()
+                        .show()
                 }
 
                 questionToRetrieve++

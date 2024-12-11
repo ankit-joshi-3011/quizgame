@@ -37,7 +37,9 @@
     <string name="button_finish_text">Finish</string>
     <string name="button_next_text">Next</string>
     <string name="database_question_retrieval_error_text">Unable to retrieve questions. Please try again later</string>
-    <string name="quiz_completed_text">You have answered all questions</string>
+    <string name="quiz_completed_text">Congratulations!<br />You have answered all questions. Do you want to see the result or play again?</string>
     <string name="time_up_text">Sorry, time is up. Please continue with the next question</string>
     <string name="score_send_to_database_successful_text">Scores sent to database successfully</string>
+    <string name="see_result_button_text">See Result</string>
+    <string name="play_again_button_text">Play Again</string>
 </resources>
